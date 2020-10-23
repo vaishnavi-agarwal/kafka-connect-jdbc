@@ -45,7 +45,6 @@ public class BaseConnectorIT {
   protected static final long CONNECTOR_STARTUP_DURATION_MS = TimeUnit.SECONDS.toMillis(300);
   protected static final String CONNECTOR_NAME = "mysql-jdbc-sink";
   protected static final String KAFKA_TOPIC = "mysqlTable";
-
   protected static final String MAX_TASKS = "1";
 
   protected static final Schema SCHEMA = SchemaBuilder.struct().name("com.example.Person")
@@ -54,6 +53,13 @@ public class BaseConnectorIT {
       .field("lastName", Schema.STRING_SCHEMA)
       .field("age", Schema.OPTIONAL_INT32_SCHEMA)
       .build();
+
+  // Removed an Optional field "age" in the new schema
+  protected static final Schema NEW_SCHEMA = SchemaBuilder.struct().name("com.example.Person")
+          .field("userId", Schema.OPTIONAL_INT32_SCHEMA)
+          .field("firstName", Schema.STRING_SCHEMA)
+          .field("lastName", Schema.STRING_SCHEMA)
+          .build();
 
   protected EmbeddedConnectCluster connect;
   protected Connection connection;
